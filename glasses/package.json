@@ -1,0 +1,32 @@
+{
+  "name": "orca-glasses",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Even Realities G2 companion for Orca: glance at oh-my-pi sessions and reply by voice.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 5173",
+    "qr": "evenhub qr --http --port 5173",
+    "pack": "pnpm run build && evenhub pack app.json dist -o orca-glasses.ehpk",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint",
+    "format": "oxfmt --write ."
+  },
+  "dependencies": {
+    "@evenrealities/even_hub_sdk": "0.0.16",
+    "tweetnacl": "^1.0.3",
+    "zod": "~4.6.5"
+  },
+  "devDependencies": {
+    "@evenrealities/evenhub-cli": "^0.1.14",
+    "@types/node": "^25.9.8",
+    "oxfmt": "^0.70.0",
+    "oxlint": "^1.85.0",
+    "typescript": "6.0.3",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.11"
+  }
+}

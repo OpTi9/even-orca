@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "types": ["vite/client", "node"],
+    // Why: the reused mobile transport resolves these bare imports from mobile/, which has its own
+    // install; pin them to this package so one copy of zod/tweetnacl backs both.
+    "paths": {
+      "expo-crypto": ["./src/platform/expo-crypto-web-shim.ts"],
+      "tweetnacl": ["./node_modules/tweetnacl"],
+      "zod": ["./node_modules/zod"]
+    }
+  },
+  "include": ["src/**/*.ts", "vite.config.ts"]
+}

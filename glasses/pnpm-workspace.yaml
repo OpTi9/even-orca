@@ -1,0 +1,6 @@
+# Standalone install like mobile/: the root workspace lists its packages explicitly,
+# so this app never joins the desktop package graph.
+minimumReleaseAge: 4320
+
+allowBuilds:
+  esbuild: true

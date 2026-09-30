@@ -1,0 +1,24 @@
+{
+  "package_id": "dev.orca.glasses",
+  "edition": "202601",
+  "name": "Orca",
+  "version": "0.0.1",
+  "min_app_version": "2.2.7",
+  "min_sdk_version": "0.0.16",
+  "tagline": "Glance at oh-my-pi sessions and reply by voice",
+  "description": "Shows the oh-my-pi coding-agent sessions running in Orca, what each last said, and which need you. Tap a session to read it and reply by voice; replies are only typed when the agent is at its prompt.",
+  "author": "Orca",
+  "entrypoint": "index.html",
+  "supported_languages": ["en"],
+  "permissions": [
+    {
+      "name": "network",
+      "desc": "Connects to the Orca desktop you paired with to read sessions and send replies.",
+      "whitelist": ["http://192.168.0.10:6768"]
+    },
+    {
+      "name": "g2-microphone",
+      "desc": "Records your spoken reply while you hold or tap; Orca transcribes it on your computer."
+    }
+  ]
+}

@@ -1,5 +1,12 @@
 import type { Terminal } from '@xterm/xterm'
+import {
+  BRACKETED_PASTE_END,
+  BRACKETED_PASTE_START,
+  sanitizeBracketedPasteText
+} from '../../../../shared/terminal-bracketed-paste-text'
 import type { WindowsInputRecordNewline } from './terminal-paste-model'
+
+export { BRACKETED_PASTE_END, BRACKETED_PASTE_START, sanitizeBracketedPasteText }
 
 type BracketedPasteTerminal = {
   modes: {
@@ -21,8 +28,6 @@ type PasteTerminalTextOptions = {
 const interruptedBracketedPasteTerminals = new WeakSet<object>()
 const bracketedPasteModeOutputTail = new WeakMap<object, string>()
 const ESCAPE = '\u001b'
-export const BRACKETED_PASTE_START = `${ESCAPE}[200~`
-export const BRACKETED_PASTE_END = `${ESCAPE}[201~`
 const BRACKETED_PASTE_MODE_SEQUENCE_RE = /^\[\?(?:\d+;)*2004(?:;\d+)*[hl]/
 const BRACKETED_PASTE_MODE_TAIL_MAX = 128
 const BRACKETED_PASTE_MODE_SEQUENCE_SCAN_MAX = BRACKETED_PASTE_MODE_TAIL_MAX
@@ -43,25 +48,6 @@ function hasBracketedPasteModeSequence(data: string): boolean {
     escapeIndex = data.indexOf(ESCAPE, escapeIndex + 1)
   }
   return false
-}
-
-// Why: an embedded ESC (e.g. a pasted `\x1b[201~` from scrollback) would close
-// the bracketed-paste frame early and run the tail as keystrokes. Replacing ESC
-// with its printable substitute (\u241b, U+241B) neutralizes every framing escape.
-export function sanitizeBracketedPasteText(text: string): string {
-  let escapeIndex = text.indexOf(ESCAPE)
-  if (escapeIndex === -1) {
-    return text
-  }
-
-  let sanitized = ''
-  let start = 0
-  while (escapeIndex !== -1) {
-    sanitized += `${text.slice(start, escapeIndex)}\u241b`
-    start = escapeIndex + ESCAPE.length
-    escapeIndex = text.indexOf(ESCAPE, start)
-  }
-  return sanitized + text.slice(start)
 }
 
 export function sanitizeTerminalPasteText(text: string): string {

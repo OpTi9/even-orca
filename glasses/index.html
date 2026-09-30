@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Orca for G2</title>
+    <style>
+      /* Even Hub companion tokens (even-toolkit light/dark themes). */
+      :root {
+        --color-text: #232323;
+        --color-text-dim: #7b7b7b;
+        --color-bg: #eeeeee;
+        --color-surface: #ffffff;
+        --color-border: #e4e4e4;
+        --color-accent: #232323;
+        --color-on-accent: #ffffff;
+        --color-positive: #4bb956;
+        --color-negative: #ff453a;
+        --radius-default: 6px;
+        color-scheme: light dark;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --color-text: #eeeeee;
+          --color-text-dim: #9a9a9a;
+          --color-bg: #111111;
+          --color-surface: #1a1a1a;
+          --color-border: #2c2c2c;
+          --color-accent: #eeeeee;
+          --color-on-accent: #111111;
+        }
+      }
+      body {
+        margin: 0;
+        padding: 16px;
+        background: var(--color-bg);
+        color: var(--color-text);
+        font:
+          15px/1.4 -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
+      }
+      #app {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+      h1 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 500;
+      }
+      .status {
+        margin: 0;
+        font-weight: 500;
+      }
+      .status[data-connection='connected'] {
+        color: var(--color-positive);
+      }
+      .status[data-connection='auth-failed'] {
+        color: var(--color-negative);
+      }
+      .hint {
+        margin: 0;
+        color: var(--color-text-dim);
+        font-size: 13px;
+      }
+      .error {
+        margin: 0;
+        color: var(--color-negative);
+        font-size: 13px;
+      }
+      label {
+        font-size: 13px;
+        color: var(--color-text-dim);
+      }
+      textarea {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-default);
+        background: var(--color-surface);
+        color: var(--color-text);
+        font:
+          13px/1.4 ui-monospace,
+          'SF Mono',
+          monospace;
+        resize: vertical;
+      }
+      button {
+        padding: 12px;
+        border: 0;
+        border-radius: var(--radius-default);
+        background: var(--color-accent);
+        color: var(--color-on-accent);
+        font: inherit;
+        font-weight: 500;
+      }
+      button.secondary {
+        background: transparent;
+        color: var(--color-text);
+        border: 1px solid var(--color-border);
+      }
+    </style>
+  </head>
+  <body>
+    <main id="app"><p class="hint">Waiting for the Even App...</p></main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
